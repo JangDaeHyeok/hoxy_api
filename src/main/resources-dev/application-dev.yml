@@ -1,0 +1,21 @@
+spring:
+  # active profile
+  config:
+    activate:
+      on-profile: dev
+  datasource:
+    # use h2 embedded
+    url: jdbc:h2:~/hoxy_h2;AUTO_SERVER=true
+    driver-class-name: org.h2.Driver
+    username: jdh
+    password:
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: create # session factory 시작 시 drop and create
+      # ddl-auto: update # 변경된 스키마 update
+    # show jpa query log
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
