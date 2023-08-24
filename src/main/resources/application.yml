@@ -1,0 +1,9 @@
+spring:
+  # default profile
+  profiles:
+    active: dev
+  #h2 database console
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
