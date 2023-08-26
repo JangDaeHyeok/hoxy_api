@@ -3,6 +3,7 @@ package com.jdh.hoxy_api.api.store.application;
 import com.jdh.hoxy_api.api.store.application.impl.StoreGetServiceImpl;
 import com.jdh.hoxy_api.api.store.domain.entity.Store;
 import com.jdh.hoxy_api.api.store.domain.repository.StoreRepository;
+import com.jdh.hoxy_api.api.store.dto.StoreGetResponseDTO;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -41,7 +42,7 @@ public class StoreGetServiceTest {
         when(storeRepository.findAll()).thenReturn(resultList);
 
         // when
-        final List<Store> result = target.getStoreList();
+        final List<StoreGetResponseDTO> result = target.getStoreList();
 
         // then
         assertThat(result.get(0).getName()).isEqualTo("테스트");
