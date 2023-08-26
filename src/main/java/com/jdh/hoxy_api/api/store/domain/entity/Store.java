@@ -2,15 +2,14 @@ package com.jdh.hoxy_api.api.store.domain.entity;
 
 import com.jdh.hoxy_api.api.common.entity.DelYnEntity;
 import com.jdh.hoxy_api.api.common.entity.RegModDtEntity;
+import com.jdh.hoxy_api.api.common.enums.YorN;
 import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
 @Getter
-@Builder
-@AllArgsConstructor(access = AccessLevel.PRIVATE)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Store {
+public class Store extends RegModDtEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,9 +18,14 @@ public class Store {
     private String name;
 
     @Embedded
-    private RegModDtEntity regModDt;
-
-    @Embedded
     private DelYnEntity delYn;
 
+    @Builder
+    public Store(int id, String name) {
+        this.id = id;
+        this.name = name;
+        this.delYn = DelYnEntity.builder()
+                .delYn(YorN.N)
+                .build();
+    }
 }

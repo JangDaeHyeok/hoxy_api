@@ -5,16 +5,17 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
-import lombok.Getter;
-import org.hibernate.annotations.ColumnDefault;
+import lombok.*;
 
 @Getter
 @Embeddable
+@Builder
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class DelYnEntity {
 
     @Enumerated(EnumType.ORDINAL)
     @Column(nullable = false)
-    @ColumnDefault("0")
     private YorN delYn;
 
 }
