@@ -1,0 +1,17 @@
+ifndef::snippets[]
+:snippets: ./build/generated-snippets
+endif::[]
+
+= API 문서
+
+== `GET /store` - 업체 목록 조회
+
+HTTP request:
+
+include::{snippets}/get-stores/http-request.adoc[]
+
+HTTP response:
+
+include::{snippets}/get-stores/http-response.adoc[]
+
+include::{snippets}/get-stores/response-fields.adoc[]
