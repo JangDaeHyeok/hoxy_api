@@ -2,6 +2,8 @@ plugins {
 	id 'java'
 	id 'org.springframework.boot' version '3.1.2'
 	id 'io.spring.dependency-management' version '1.1.2'
+	// for convert adoc file, copy to build directory
+	id "org.asciidoctor.jvm.convert" version "3.3.2"
 }
 
 group = 'com.jdh'
@@ -15,10 +17,18 @@ configurations {
 	compileOnly {
 		extendsFrom annotationProcessor
 	}
+
+	// asciidoctor 확장 기능 사용
+	asciidoctorExtensions
 }
 
 repositories {
 	mavenCentral()
+}
+
+ext {
+	// 테스트 실행 시 생성되는 응답을 저장할 디렉토리
+	snippetsDir = file('build/generated-snippets')
 }
 
 dependencies {
@@ -38,10 +48,42 @@ dependencies {
 
 	// https://mvnrepository.com/artifact/com.google.code.gson/gson
 	implementation group: 'com.google.code.gson', name: 'gson', version: '2.8.5'
+
+	// spring restdocs
+	testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
+	// asciidoctor (configurations에서 지정한 의존 설정 사용)
+	asciidoctorExtensions 'org.springframework.restdocs:spring-restdocs-asciidoctor'
 }
 
 tasks.named('test') {
+	// 테스트 시 snippetsDir 경로에 생성된 응답을 asciidoctor로 변환하여 adoc 파일 생성
+	outputs.dir snippetsDir
 	useJUnitPlatform()
+}
+
+// asciidoctor를 사용하기 위하여 asciidoctor task에 asciidoctorExtensions 설정
+tasks.named('asciidoctor') {
+	configurations "asciidoctorExtensions"
+	inputs.dir snippetsDir
+	dependsOn test
+}
+
+// asciidoctor task 실행시 생성된 html 파일을 src/main/resources/static/docs 디렉토리에 카피
+tasks.register('copyDocument', Copy) {
+	dependsOn asciidoctor
+	from file("${asciidoctor.outputDir}")
+	into file("src/main/resources/static/docs")
+}
+
+build {
+	dependsOn copyDocument  // 빌드 전 copyDocument task 실행
+}
+
+bootJar {
+	dependsOn copyDocument    // bootJar 실행 전 copyDocument task 실행
+	from ("${asciidoctor.outputDir}") {  // bootJar에 asciidoctor task에서 생성된 html 파일 추가
+		into 'BOOT-INF/classes/static/docs'     // bootJar에 추가될 경로
+	}
 }
 
 // active profile default를 dev로 지정
