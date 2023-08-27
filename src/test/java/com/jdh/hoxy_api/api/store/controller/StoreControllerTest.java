@@ -4,8 +4,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.jdh.hoxy_api.api.store.application.impl.StoreGetServiceImpl;
-import com.jdh.hoxy_api.api.store.domain.entity.Store;
 import com.jdh.hoxy_api.api.store.dto.StoreGetResponseDTO;
+import com.jdh.hoxy_api.api.common.response.entity.ApiResponseEntity;
 import com.jdh.hoxy_api.config.security.TestSecurityConfig;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -69,10 +69,11 @@ public class StoreControllerTest {
         // then
         resultActions.andExpect(status().isOk());
 
-        final List<StoreGetResponseDTO> response = gson.fromJson(resultActions.andReturn()
+        final ApiResponseEntity response = gson.fromJson(resultActions.andReturn()
                 .getResponse()
-                .getContentAsString(StandardCharsets.UTF_8), new TypeToken<List<StoreGetResponseDTO>>(){}.getType());
-        assertThat(response.get(0).getName()).isEqualTo("테스트");
+                .getContentAsString(StandardCharsets.UTF_8), ApiResponseEntity.class);
+        final List<StoreGetResponseDTO> data = gson.fromJson(response.getData().toString(), new TypeToken<List<StoreGetResponseDTO>>(){}.getType());
+        assertThat(data.get(0).getName()).isEqualTo("테스트");
     }
 
 }
