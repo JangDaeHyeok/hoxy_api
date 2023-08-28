@@ -21,7 +21,7 @@ public class Store extends RegModDtEntity {
     private DelYnEntity delYn;
 
     @Builder
-    public Store(String name) {
+    protected Store(String name) {
         this.name = name;
         this.delYn = DelYnEntity.builder()
                 .delYn(YorN.N)
