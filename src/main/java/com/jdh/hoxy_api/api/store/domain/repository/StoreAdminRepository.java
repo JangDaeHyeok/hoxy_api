@@ -10,4 +10,6 @@ public interface StoreAdminRepository extends JpaRepository<StoreAdmin, Long> {
 
     StoreAdmin findByStoreIdx(int StoreIdx);
 
+    StoreAdmin findById(String id);
+
 }
