@@ -8,6 +8,6 @@ public interface StoreAdminRepository extends JpaRepository<StoreAdmin, Long> {
 
     StoreAdmin findByStore(Store store);
 
-    StoreAdmin findByIdAndPassword(String id, String password);
+    StoreAdmin findByStoreIdx(int StoreIdx);
 
 }
