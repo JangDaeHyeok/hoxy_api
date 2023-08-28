@@ -1,10 +1,11 @@
 package com.jdh.hoxy_api.api.store.domain.entity;
 
-import com.jdh.hoxy_api.api.common.entity.DelYnEntity;
 import com.jdh.hoxy_api.api.common.entity.RegModDtEntity;
-import com.jdh.hoxy_api.api.common.enums.YorN;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Getter
@@ -23,18 +24,9 @@ public class StoreAdmin extends RegModDtEntity {
 
     private String name;
 
-    @Embedded
-    private DelYnEntity delYn;
-
     @OneToOne
     @JoinColumn(name = "store_idx")
     private Store store;
-
-    public void chgDelYn(YorN yorN) {
-        this.delYn = DelYnEntity.builder()
-                .delYn(yorN)
-                .build();
-    }
 
     public void addStore(Store store) {
         this.store = store;
@@ -46,9 +38,6 @@ public class StoreAdmin extends RegModDtEntity {
         this.password = password;
         this.pwSalt = pwSalt;
         this.name = name;
-        this.delYn = DelYnEntity.builder()
-                .delYn(YorN.N)
-                .build();
     }
 
 }

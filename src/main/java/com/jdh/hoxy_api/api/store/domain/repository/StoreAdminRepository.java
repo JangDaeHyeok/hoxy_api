@@ -1,6 +1,5 @@
 package com.jdh.hoxy_api.api.store.domain.repository;
 
-import com.jdh.hoxy_api.api.common.entity.DelYnEntity;
 import com.jdh.hoxy_api.api.store.domain.entity.Store;
 import com.jdh.hoxy_api.api.store.domain.entity.StoreAdmin;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -9,6 +8,6 @@ public interface StoreAdminRepository extends JpaRepository<StoreAdmin, Long> {
 
     StoreAdmin findByStore(Store store);
 
-    StoreAdmin findByIdAndPasswordAndDelYn(String id, String password, DelYnEntity delYn);
+    StoreAdmin findByIdAndPassword(String id, String password);
 
 }
