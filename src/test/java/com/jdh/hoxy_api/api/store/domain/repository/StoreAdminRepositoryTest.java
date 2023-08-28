@@ -1,7 +1,5 @@
 package com.jdh.hoxy_api.api.store.domain.repository;
 
-import com.jdh.hoxy_api.api.common.entity.DelYnEntity;
-import com.jdh.hoxy_api.api.common.enums.YorN;
 import com.jdh.hoxy_api.api.store.domain.entity.Store;
 import com.jdh.hoxy_api.api.store.domain.entity.StoreAdmin;
 import org.junit.jupiter.api.Test;
@@ -74,10 +72,7 @@ public class StoreAdminRepositoryTest {
 
         // when
         storeAdminRepository.save(storeAdmin);
-        final StoreAdmin result = storeAdminRepository.findByIdAndPasswordAndDelYn("test"
-                , "1234"
-                , DelYnEntity.builder().delYn(YorN.N).build()
-        );
+        final StoreAdmin result = storeAdminRepository.findByIdAndPassword("test", "1234");
 
         // then
         assertThat(result.getId()).isEqualTo("test");
@@ -85,26 +80,6 @@ public class StoreAdminRepositoryTest {
         assertThat(result.getPwSalt()).isEqualTo("salt");
         assertThat(result.getName()).isEqualTo("테스트 관리자");
         assertThat(result.getStore().getName()).isEqualTo("테스트");
-    }
-
-    @Test
-    public void StoreAdminRepository_업체_관리자를_아이디_비밀번호로_조회_시_삭제된_계정정보는_미조회하는지_테스트() {
-        // given
-        final Store store = getTestStore();
-        storeRepository.save(store);
-        final StoreAdmin storeAdmin = getTestStoreAdmin();
-        storeAdmin.addStore(store);
-        storeAdmin.chgDelYn(YorN.Y);
-
-        // when
-        storeAdminRepository.save(storeAdmin);
-        final StoreAdmin result = storeAdminRepository.findByIdAndPasswordAndDelYn("test"
-                , "1234"
-                , DelYnEntity.builder().delYn(YorN.N).build()
-        );
-
-        // then
-        assertThat(result).isEqualTo(null);
     }
 
     private Store getTestStore() {
@@ -119,15 +94,6 @@ public class StoreAdminRepositoryTest {
                 .password("1234")
                 .pwSalt("salt")
                 .name("테스트 관리자")
-                .build();
-    }
-
-    private StoreAdmin getTestStoreAdmin2() {
-        return StoreAdmin.builder()
-                .id("test")
-                .password("1234")
-                .pwSalt("salt")
-                .name("임시 관리자")
                 .build();
     }
 
