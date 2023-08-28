@@ -63,7 +63,7 @@ public class StoreAdminRepositoryTest {
     }
 
     @Test
-    public void StoreAdminRepository_업체_관리자를_아이디_비밀번호_정보로_조회() {
+    public void StoreAdminRepository_업체_관리자를_업체_idx로_조회() {
         // given
         final Store store = getTestStore();
         storeRepository.save(store);
@@ -72,7 +72,7 @@ public class StoreAdminRepositoryTest {
 
         // when
         storeAdminRepository.save(storeAdmin);
-        final StoreAdmin result = storeAdminRepository.findByIdAndPassword("test", "1234");
+        final StoreAdmin result = storeAdminRepository.findByStoreIdx(1);
 
         // then
         assertThat(result.getId()).isEqualTo("test");
