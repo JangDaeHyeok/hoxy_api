@@ -83,7 +83,7 @@ public class StoreAdminRepositoryTest {
     }
 
     @Test
-    public void StoreAdminRepository_업체_관리자를_id로_조회() {
+    public void StoreAdminRepository_id_개수_조회() {
         // given
         final Store store = getTestStore();
         storeRepository.save(store);
@@ -92,14 +92,10 @@ public class StoreAdminRepositoryTest {
 
         // when
         storeAdminRepository.save(storeAdmin);
-        final StoreAdmin result = storeAdminRepository.findById("test");
+        final int result = storeAdminRepository.countById("test");
 
         // then
-        assertThat(result.getId()).isEqualTo("test");
-        assertThat(result.getPassword()).isEqualTo("1234");
-        assertThat(result.getPwSalt()).isEqualTo("salt");
-        assertThat(result.getName()).isEqualTo("테스트 관리자");
-        assertThat(result.getStore().getName()).isEqualTo("테스트");
+        assertThat(result).isEqualTo(1);
     }
 
     private Store getTestStore() {
