@@ -37,7 +37,6 @@ public class StoreAdminRepositoryTest {
         // then
         assertThat(result.getId()).isEqualTo("test");
         assertThat(result.getPassword()).isEqualTo("1234");
-        assertThat(result.getPwSalt()).isEqualTo("salt");
         assertThat(result.getName()).isEqualTo("테스트 관리자");
         assertThat(result.getStore().getName()).isEqualTo("테스트");
     }
@@ -57,7 +56,6 @@ public class StoreAdminRepositoryTest {
         // then
         assertThat(result.getId()).isEqualTo("test");
         assertThat(result.getPassword()).isEqualTo("1234");
-        assertThat(result.getPwSalt()).isEqualTo("salt");
         assertThat(result.getName()).isEqualTo("테스트 관리자");
         assertThat(result.getStore().getName()).isEqualTo("테스트");
     }
@@ -72,12 +70,11 @@ public class StoreAdminRepositoryTest {
 
         // when
         storeAdminRepository.save(storeAdmin);
-        final StoreAdmin result = storeAdminRepository.findByStoreIdx(1);
+        final StoreAdmin result = storeAdminRepository.findByStoreIdx(store.getIdx());
 
         // then
         assertThat(result.getId()).isEqualTo("test");
         assertThat(result.getPassword()).isEqualTo("1234");
-        assertThat(result.getPwSalt()).isEqualTo("salt");
         assertThat(result.getName()).isEqualTo("테스트 관리자");
         assertThat(result.getStore().getName()).isEqualTo("테스트");
     }
@@ -108,7 +105,6 @@ public class StoreAdminRepositoryTest {
         return StoreAdmin.builder()
                 .id("test")
                 .password("1234")
-                .pwSalt("salt")
                 .name("테스트 관리자")
                 .build();
     }
