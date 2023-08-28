@@ -82,6 +82,26 @@ public class StoreAdminRepositoryTest {
         assertThat(result.getStore().getName()).isEqualTo("테스트");
     }
 
+    @Test
+    public void StoreAdminRepository_업체_관리자를_id로_조회() {
+        // given
+        final Store store = getTestStore();
+        storeRepository.save(store);
+        final StoreAdmin storeAdmin = getTestStoreAdmin();
+        storeAdmin.addStore(store);
+
+        // when
+        storeAdminRepository.save(storeAdmin);
+        final StoreAdmin result = storeAdminRepository.findById("test");
+
+        // then
+        assertThat(result.getId()).isEqualTo("test");
+        assertThat(result.getPassword()).isEqualTo("1234");
+        assertThat(result.getPwSalt()).isEqualTo("salt");
+        assertThat(result.getName()).isEqualTo("테스트 관리자");
+        assertThat(result.getStore().getName()).isEqualTo("테스트");
+    }
+
     private Store getTestStore() {
         return Store.builder()
                 .name("테스트")
