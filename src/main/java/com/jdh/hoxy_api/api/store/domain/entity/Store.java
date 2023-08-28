@@ -13,7 +13,7 @@ public class Store extends RegModDtEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private int idx;
 
     private String name;
 
@@ -21,8 +21,7 @@ public class Store extends RegModDtEntity {
     private DelYnEntity delYn;
 
     @Builder
-    public Store(int id, String name) {
-        this.id = id;
+    public Store(String name) {
         this.name = name;
         this.delYn = DelYnEntity.builder()
                 .delYn(YorN.N)
