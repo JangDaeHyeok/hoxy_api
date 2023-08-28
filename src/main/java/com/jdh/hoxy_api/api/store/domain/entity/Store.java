@@ -20,6 +20,9 @@ public class Store extends RegModDtEntity {
     @Embedded
     private DelYnEntity delYn;
 
+    @OneToOne(mappedBy = "store")
+    private StoreAdmin storeAdmin;
+
     @Builder
     protected Store(String name) {
         this.name = name;
