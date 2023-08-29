@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.jdh.hoxy_api.api.store.application.impl.StoreGetServiceImpl;
-import com.jdh.hoxy_api.api.store.dto.StoreGetResponseDTO;
+import com.jdh.hoxy_api.api.store.dto.response.StoreGetResponseDTO;
 import com.jdh.hoxy_api.api.common.response.entity.ApiResponseEntity;
 import com.jdh.hoxy_api.config.security.TestSecurityConfig;
 import org.junit.jupiter.api.BeforeEach;

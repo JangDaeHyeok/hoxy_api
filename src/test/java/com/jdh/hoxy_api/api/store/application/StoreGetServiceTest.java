@@ -3,7 +3,7 @@ package com.jdh.hoxy_api.api.store.application;
 import com.jdh.hoxy_api.api.store.application.impl.StoreGetServiceImpl;
 import com.jdh.hoxy_api.api.store.domain.entity.Store;
 import com.jdh.hoxy_api.api.store.domain.repository.StoreRepository;
-import com.jdh.hoxy_api.api.store.dto.StoreGetResponseDTO;
+import com.jdh.hoxy_api.api.store.dto.response.StoreGetResponseDTO;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

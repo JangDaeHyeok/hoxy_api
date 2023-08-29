@@ -1,7 +1,7 @@
 package com.jdh.hoxy_api.api.store.controller;
 
 import com.jdh.hoxy_api.api.store.application.impl.StoreGetServiceImpl;
-import com.jdh.hoxy_api.api.store.dto.StoreGetResponseDTO;
+import com.jdh.hoxy_api.api.store.dto.response.StoreGetResponseDTO;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;

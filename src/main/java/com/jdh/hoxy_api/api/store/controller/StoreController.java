@@ -1,7 +1,7 @@
 package com.jdh.hoxy_api.api.store.controller;
 
 import com.jdh.hoxy_api.api.store.application.StoreGetService;
-import com.jdh.hoxy_api.api.store.dto.StoreGetResponseDTO;
+import com.jdh.hoxy_api.api.store.dto.response.StoreGetResponseDTO;
 import com.jdh.hoxy_api.api.common.response.entity.ApiResponseEntity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

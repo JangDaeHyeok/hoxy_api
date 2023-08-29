@@ -1,4 +1,4 @@
-package com.jdh.hoxy_api.api.store.dto;
+package com.jdh.hoxy_api.api.store.dto.response;
 
 import com.jdh.hoxy_api.api.store.domain.entity.Store;
 import lombok.Builder;
