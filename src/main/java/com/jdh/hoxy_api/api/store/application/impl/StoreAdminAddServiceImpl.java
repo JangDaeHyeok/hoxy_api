@@ -12,6 +12,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class StoreAdminAddServiceImpl implements StoreAdminAddService {
@@ -30,8 +32,7 @@ public class StoreAdminAddServiceImpl implements StoreAdminAddService {
                 .orElseThrow(() -> new StoreAdminException(StoreAdminErrorResult.STORE_NOT_EXIST));
 
         // 이미 가입한 업체인지 체크
-        StoreAdmin findStoreAdmin = storeAdminRepository.findByStoreIdx(storeIdx);
-        if(findStoreAdmin != null)
+        if(Optional.ofNullable(storeAdminRepository.findByStoreIdx(storeIdx)).isPresent())
             throw new StoreAdminException(StoreAdminErrorResult.DUPLICATE_STORE);
 
         // 중복되는 id인지 체크
