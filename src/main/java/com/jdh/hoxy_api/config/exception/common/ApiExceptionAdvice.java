@@ -1,6 +1,6 @@
-package com.jdh.hoxy_api.config.common.exception;
+package com.jdh.hoxy_api.config.exception.common;
 
-import com.jdh.hoxy_api.config.common.exception.enums.ApiExceptionEnum;
+import com.jdh.hoxy_api.config.exception.common.enums.ApiExceptionEnum;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.HttpRequestMethodNotSupportedException;

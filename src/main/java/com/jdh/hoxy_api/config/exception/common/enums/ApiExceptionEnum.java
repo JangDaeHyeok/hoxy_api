@@ -1,4 +1,4 @@
-package com.jdh.hoxy_api.config.common.exception.enums;
+package com.jdh.hoxy_api.config.exception.common.enums;
 
 import lombok.Getter;
 import org.springframework.http.HttpStatus;

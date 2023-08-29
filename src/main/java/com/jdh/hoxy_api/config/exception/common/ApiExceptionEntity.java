@@ -1,4 +1,4 @@
-package com.jdh.hoxy_api.config.common.exception;
+package com.jdh.hoxy_api.config.exception.common;
 
 import lombok.Builder;
 import lombok.Getter;
