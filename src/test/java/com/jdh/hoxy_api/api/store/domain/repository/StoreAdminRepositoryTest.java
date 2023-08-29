@@ -51,7 +51,7 @@ public class StoreAdminRepositoryTest {
 
         // when
         storeAdminRepository.save(storeAdmin);
-        final StoreAdmin result = storeAdminRepository.findByStore(store);
+        final StoreAdmin result = storeAdminRepository.findByStore(store).get();
 
         // then
         assertThat(result.getId()).isEqualTo("test");
@@ -70,7 +70,7 @@ public class StoreAdminRepositoryTest {
 
         // when
         storeAdminRepository.save(storeAdmin);
-        final StoreAdmin result = storeAdminRepository.findByStoreIdx(store.getIdx());
+        final StoreAdmin result = storeAdminRepository.findByStoreIdx(store.getIdx()).get();
 
         // then
         assertThat(result.getId()).isEqualTo("test");

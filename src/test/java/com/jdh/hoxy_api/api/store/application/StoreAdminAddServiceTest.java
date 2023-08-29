@@ -59,7 +59,7 @@ public class StoreAdminAddServiceTest {
     public void StoreAdminAddService_회원가입_실패_이미_관리자_계정을_생성한_업체() {
         // given
         when(storeRepository.findById(1L)).thenReturn(Optional.of(getTestStore()));
-        when(storeAdminRepository.findByStoreIdx(1)).thenReturn(StoreAdmin.builder().build());
+        when(storeAdminRepository.findByStoreIdx(1)).thenReturn(Optional.of(StoreAdmin.builder().build()));
 
         // when
         final StoreAdminException result = assertThrows(StoreAdminException.class, () -> target.addStoreAdmin(1, "test", "1234", "닉네임"));
