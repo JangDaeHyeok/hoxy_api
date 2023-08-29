@@ -27,12 +27,14 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain config(HttpSecurity http, MvcRequestMatcher.Builder mvc) throws Exception {
+        MvcRequestMatcher[] PERMIT_ALL_WHITE_LIST = {mvc.pattern("/store"), mvc.pattern("/store/admin")};
+
         http.csrf(AbstractHttpConfigurer::disable);
 
         http.headers((headers) ->
                 headers.frameOptions(HeadersConfigurer.FrameOptionsConfig::disable));
 
-        http.authorizeHttpRequests(authorize -> authorize.requestMatchers(mvc.pattern("/store")).permitAll());
+        http.authorizeHttpRequests(authorize -> authorize.requestMatchers(PERMIT_ALL_WHITE_LIST).permitAll());
 
         return http.build();
     }
