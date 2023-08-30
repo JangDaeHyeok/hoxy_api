@@ -13,3 +13,7 @@ spring:
   web:
     resources:
       add-mappings: false
+
+# jwt 암/복호화에 사용되는 key
+jwt:
+  signing-key: jangdaehyeok
