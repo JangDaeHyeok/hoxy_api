@@ -71,7 +71,7 @@ public class StoreAdminControllerTest {
 
         // when
         final ResultActions resultActions = mockMvc.perform(
-                MockMvcRequestBuilders.post("/store/admin")
+                MockMvcRequestBuilders.post("/manage/store/admin")
                         .content(gson.toJson(requestDTO))
                         .contentType(MediaType.APPLICATION_JSON)
         );
@@ -92,7 +92,7 @@ public class StoreAdminControllerTest {
 
         // when
         final ResultActions resultActions = mockMvc.perform(
-                MockMvcRequestBuilders.post("/store/admin")
+                MockMvcRequestBuilders.post("/manage/store/admin")
                         .content(gson.toJson(requestDTO))
                         .contentType(MediaType.APPLICATION_JSON)
         );
@@ -113,7 +113,7 @@ public class StoreAdminControllerTest {
 
         // when
         final ResultActions resultActions = mockMvc.perform(
-                MockMvcRequestBuilders.post("/store/admin")
+                MockMvcRequestBuilders.post("/manage/store/admin")
                         .content(gson.toJson(requestDTO))
                         .contentType(MediaType.APPLICATION_JSON)
         );
@@ -134,7 +134,7 @@ public class StoreAdminControllerTest {
 
         // when
         final ResultActions resultActions = mockMvc.perform(
-                MockMvcRequestBuilders.post("/store/admin")
+                MockMvcRequestBuilders.post("/manage/store/admin")
                         .content(gson.toJson(requestDTO))
                         .contentType(MediaType.APPLICATION_JSON)
         );
@@ -154,7 +154,7 @@ public class StoreAdminControllerTest {
 
         // when
         final ResultActions resultActions = mockMvc.perform(
-                MockMvcRequestBuilders.post("/store/admin")
+                MockMvcRequestBuilders.post("/manage/store/admin")
                         .content(gson.toJson(requestDTO))
                         .contentType(MediaType.APPLICATION_JSON)
         );
@@ -178,7 +178,7 @@ public class StoreAdminControllerTest {
 
         // when
         final ResultActions resultActions = mockMvc.perform(
-                MockMvcRequestBuilders.post("/store/admin")
+                MockMvcRequestBuilders.post("/manage/store/admin")
                         .content(gson.toJson(requestDTO))
                         .contentType(MediaType.APPLICATION_JSON)
         );
@@ -202,7 +202,7 @@ public class StoreAdminControllerTest {
 
         // when
         final ResultActions resultActions = mockMvc.perform(
-                MockMvcRequestBuilders.post("/store/admin")
+                MockMvcRequestBuilders.post("/manage/store/admin")
                         .content(gson.toJson(requestDTO))
                         .contentType(MediaType.APPLICATION_JSON)
         );
@@ -226,7 +226,7 @@ public class StoreAdminControllerTest {
 
         // when
         final ResultActions resultActions = mockMvc.perform(
-                MockMvcRequestBuilders.post("/store/admin")
+                MockMvcRequestBuilders.post("/manage/store/admin")
                         .content(gson.toJson(requestDTO))
                         .contentType(MediaType.APPLICATION_JSON)
         );

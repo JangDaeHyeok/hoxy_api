@@ -43,7 +43,7 @@ public class StoreAdminControllerDocsTest {
         final String body = objectMapper.writeValueAsString(requestDTO);
 
         // then
-        mockMvc.perform(post("/store/admin").content(body).contentType(MediaType.APPLICATION_JSON))
+        mockMvc.perform(post("/manage/store/admin").content(body).contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andDo(document("add-store-admin",
                         preprocessRequest(prettyPrint()),
