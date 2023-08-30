@@ -42,6 +42,7 @@ public class StoreControllerDocsTest {
     public void storeListGetApi() throws Exception {
         // given
         final StoreGetResponseDTO store = StoreGetResponseDTO.builder()
+                .idx(1)
                 .name("테스트")
                 .build();
         final List<StoreGetResponseDTO> resultList = new ArrayList<>(){{
@@ -57,6 +58,7 @@ public class StoreControllerDocsTest {
                         responseFields(
                                 fieldWithPath("result").description("요청 결과"),
                                 fieldWithPath("msg").description("메시지"),
+                                fieldWithPath("data[].idx").description("업체 IDX"),
                                 fieldWithPath("data[].name").description("업체명")
                         )
                 ));

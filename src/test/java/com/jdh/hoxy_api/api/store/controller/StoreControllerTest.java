@@ -54,6 +54,7 @@ public class StoreControllerTest {
     public void Store_조회_성공() throws Exception {
         // given
         final StoreGetResponseDTO store = StoreGetResponseDTO.builder()
+                .idx(1)
                 .name("테스트")
                 .build();
         final List<StoreGetResponseDTO> resultList = new ArrayList<>(){{
@@ -73,6 +74,7 @@ public class StoreControllerTest {
                 .getResponse()
                 .getContentAsString(StandardCharsets.UTF_8), ApiResponseEntity.class);
         final List<StoreGetResponseDTO> data = gson.fromJson(response.getData().toString(), new TypeToken<List<StoreGetResponseDTO>>(){}.getType());
+        assertThat(data.get(0).getIdx()).isEqualTo(1);
         assertThat(data.get(0).getName()).isEqualTo("테스트");
     }
 
