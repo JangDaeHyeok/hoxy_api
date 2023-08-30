@@ -29,7 +29,8 @@ public class SecurityConfig {
     public SecurityFilterChain config(HttpSecurity http, MvcRequestMatcher.Builder mvc) throws Exception {
         MvcRequestMatcher[] PERMIT_ALL_WHITE_LIST = {
                 mvc.pattern("/store"),
-                mvc.pattern("/manage/store/admin")
+                mvc.pattern("/manage/store/admin"),
+                mvc.pattern("/manage/login")
         };
 
         http.csrf(AbstractHttpConfigurer::disable);
