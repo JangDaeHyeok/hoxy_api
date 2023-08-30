@@ -14,4 +14,6 @@ public interface StoreAdminRepository extends JpaRepository<StoreAdmin, Long> {
 
     int countById(String id);
 
+    Optional<StoreAdmin> findById(String id);
+
 }
