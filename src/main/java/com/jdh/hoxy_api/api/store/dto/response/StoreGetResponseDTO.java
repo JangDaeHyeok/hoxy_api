@@ -10,10 +10,13 @@ import lombok.RequiredArgsConstructor;
 @Builder
 public class StoreGetResponseDTO {
 
+    private final int idx;
+
     private final String name;
 
     public static StoreGetResponseDTO of(Store store) {
         return StoreGetResponseDTO.builder()
+                .idx(store.getIdx())
                 .name(store.getName())
                 .build();
     }
