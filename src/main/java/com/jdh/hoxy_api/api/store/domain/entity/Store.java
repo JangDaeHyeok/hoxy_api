@@ -28,7 +28,8 @@ public class Store extends RegModDtEntity {
     @Embedded
     private DelYnEntity delYn;
 
-    @OneToOne(mappedBy = "store", cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "idx")
     private StoreAdmin storeAdmin;
 
     @OneToMany(mappedBy = "store")

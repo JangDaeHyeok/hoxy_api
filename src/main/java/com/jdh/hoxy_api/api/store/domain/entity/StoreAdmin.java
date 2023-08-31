@@ -15,6 +15,7 @@ public class StoreAdmin extends RegModDtEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "store_idx")
     private int idx;
 
     private String id;
@@ -22,10 +23,6 @@ public class StoreAdmin extends RegModDtEntity {
     private String password;
 
     private String name;
-
-    @OneToOne
-    @JoinColumn(name = "store_idx")
-    private Store store;
 
     /**
      * 패스워드 암호화
