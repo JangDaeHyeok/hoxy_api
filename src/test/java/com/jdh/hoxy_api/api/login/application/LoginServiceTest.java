@@ -4,8 +4,9 @@ import com.jdh.hoxy_api.api.login.application.impl.LoginServiceImpl;
 import com.jdh.hoxy_api.api.login.dto.response.LoginResponseDTO;
 import com.jdh.hoxy_api.api.login.exception.LoginException;
 import com.jdh.hoxy_api.api.login.exception.enums.LoginErrorResult;
+import com.jdh.hoxy_api.api.store.domain.entity.Store;
 import com.jdh.hoxy_api.api.store.domain.entity.StoreAdmin;
-import com.jdh.hoxy_api.api.store.domain.repository.StoreAdminRepository;
+import com.jdh.hoxy_api.api.store.domain.repository.StoreRepository;
 import com.jdh.hoxy_api.config.security.provider.JwtTokenProvider;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -28,7 +29,7 @@ public class LoginServiceTest {
     LoginServiceImpl target;
 
     @Mock
-    StoreAdminRepository storeAdminRepository;
+    StoreRepository storeRepository;
 
     @Mock
     PasswordEncoder bCryptPasswordEncoder;
@@ -46,7 +47,7 @@ public class LoginServiceTest {
     @DisplayName("아이디가 존재하지 않는 경우 로그인 실패 test")
     public void LoginService_실패_아이디_미존재() {
         // given
-        when(storeAdminRepository.findById("test123")).thenReturn(Optional.empty());
+        when(storeRepository.findByStoreAdminId("test123")).thenReturn(Optional.empty());
 
         // when
         final LoginException result = assertThrows(LoginException.class, () -> target.login("test123", "1234"));
@@ -59,8 +60,10 @@ public class LoginServiceTest {
     @DisplayName("아이디와 비밀번호가 일치하지 않는 경우 로그인 실패 test")
     public void LoginService_실패_아이디_비밀번호_불일치() {
         // given
+        final Store store = getTestStore();
         final StoreAdmin storeAdmin = getTestStoreAdmin();
-        when(storeAdminRepository.findById("test")).thenReturn(Optional.of(storeAdmin));
+        store.addStoreAdmin(storeAdmin);
+        when(storeRepository.findByStoreAdminId("test")).thenReturn(Optional.of(store));
         when(storeAdmin.checkPassword("5678", bCryptPasswordEncoder)).thenReturn(false);
 
         // when
@@ -74,8 +77,10 @@ public class LoginServiceTest {
     @DisplayName("로그인 성공 test")
     public void LoginService_성공() {
         // given
+        final Store store = getTestStore();
         final StoreAdmin storeAdmin = getTestStoreAdmin();
-        when(storeAdminRepository.findById("test")).thenReturn(Optional.of(storeAdmin));
+        store.addStoreAdmin(storeAdmin);
+        when(storeRepository.findByStoreAdminId("test")).thenReturn(Optional.of(store));
         when(storeAdmin.checkPassword("1234", bCryptPasswordEncoder)).thenReturn(true);
         final String testToken = "testToken1234";
         when(jwtTokenProvider.generateAccessToken("test")).thenReturn(testToken);
@@ -88,8 +93,14 @@ public class LoginServiceTest {
         assertThat(result.getToken()).isEqualTo(testToken);
 
         // verify
-        verify(storeAdminRepository, times(1)).findById("test");
+        verify(storeRepository, times(1)).findByStoreAdminId("test");
         verify(jwtTokenProvider, times(1)).generateAccessToken("test");
+    }
+
+    private Store getTestStore() {
+        return Store.builder()
+                .name("테스트")
+                .build();
     }
 
     private StoreAdmin getTestStoreAdmin() {

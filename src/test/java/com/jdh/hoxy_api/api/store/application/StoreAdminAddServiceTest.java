@@ -3,7 +3,6 @@ package com.jdh.hoxy_api.api.store.application;
 import com.jdh.hoxy_api.api.store.application.impl.StoreAdminAddServiceImpl;
 import com.jdh.hoxy_api.api.store.domain.entity.Store;
 import com.jdh.hoxy_api.api.store.domain.entity.StoreAdmin;
-import com.jdh.hoxy_api.api.store.domain.repository.StoreAdminRepository;
 import com.jdh.hoxy_api.api.store.domain.repository.StoreRepository;
 import com.jdh.hoxy_api.api.store.exception.StoreAdminException;
 import com.jdh.hoxy_api.api.store.exception.enums.StoreAdminErrorResult;
@@ -26,9 +25,6 @@ public class StoreAdminAddServiceTest {
 
     @InjectMocks
     StoreAdminAddServiceImpl target;
-
-    @Mock
-    StoreAdminRepository storeAdminRepository;
 
     @Mock
     StoreRepository storeRepository;
@@ -55,26 +51,11 @@ public class StoreAdminAddServiceTest {
     }
 
     @Test
-    @DisplayName("업체 관리자 계정을 이미 생성한 경우 계정 등록 실패 테스트")
-    public void StoreAdminAddService_회원가입_실패_이미_관리자_계정을_생성한_업체() {
-        // given
-        when(storeRepository.findById(1L)).thenReturn(Optional.of(getTestStore()));
-        when(storeAdminRepository.findByStoreIdx(1)).thenReturn(Optional.of(StoreAdmin.builder().build()));
-
-        // when
-        final StoreAdminException result = assertThrows(StoreAdminException.class, () -> target.addStoreAdmin(1, "test", "1234", "닉네임"));
-
-        // then
-        assertThat(result.getStoreAdminErrorResult()).isEqualTo(StoreAdminErrorResult.DUPLICATE_STORE);
-    }
-
-    @Test
     @DisplayName("업체 관리자 계정 등록 시 이미 존재하는 계정이 있는 경우 계정 등록 실패 테스트")
     public void StoreAdminAddService_회원가입_실패_이미_존재하는_계정() {
         // given
         when(storeRepository.findById(1L)).thenReturn(Optional.of(getTestStore()));
-        when(storeAdminRepository.findByStoreIdx(1)).thenReturn(null);
-        when(storeAdminRepository.countById("test")).thenReturn(1);
+        when(storeRepository.countByStoreAdminId("test")).thenReturn(1);
 
         // when
         final StoreAdminException result = assertThrows(StoreAdminException.class, () -> target.addStoreAdmin(1, "test", "1234", "닉네임"));
@@ -84,12 +65,29 @@ public class StoreAdminAddServiceTest {
     }
 
     @Test
+    @DisplayName("업체 관리자 계정을 이미 생성한 경우 계정 등록 실패 테스트")
+    public void StoreAdminAddService_회원가입_실패_이미_관리자_계정을_생성한_업체() {
+        // given
+        final Store store = getTestStore();
+        final StoreAdmin storeAdmin = getTestStoreAdmin();
+        store.addStoreAdmin(storeAdmin);
+        when(storeRepository.findById(1L)).thenReturn(Optional.of(store));
+
+        // when
+        final StoreAdminException result = assertThrows(StoreAdminException.class, () -> target.addStoreAdmin(1, "test", "1234", "닉네임"));
+
+        // then
+        assertThat(result.getStoreAdminErrorResult()).isEqualTo(StoreAdminErrorResult.DUPLICATE_STORE);
+    }
+
+    @Test
     @DisplayName("업체 관리자 계정 등록 성공")
     public void StoreAdminAddService_회원가입_성공() {
         // given
-        when(storeRepository.findById(1L)).thenReturn(Optional.of(getTestStore()));
-        when(storeAdminRepository.findByStoreIdx(1)).thenReturn(null);
-        when(storeAdminRepository.countById("test")).thenReturn(0);
+        final Store store = getTestStore();
+        final StoreAdmin storeAdmin = getTestStoreAdmin();
+        when(storeRepository.findById(1L)).thenReturn(Optional.of(store));
+        when(storeRepository.countByStoreAdminId("test")).thenReturn(0);
 
         // when
         target.addStoreAdmin(1, "test", "1234", "닉네임");
@@ -98,8 +96,7 @@ public class StoreAdminAddServiceTest {
 
         // verify
         verify(storeRepository, times(1)).findById(1L);
-        verify(storeAdminRepository, times(1)).findByStoreIdx(1);
-        verify(storeAdminRepository, times(1)).countById("test");
+        verify(storeRepository, times(1)).countByStoreAdminId("test");
     }
 
     private Store getTestStore() {
