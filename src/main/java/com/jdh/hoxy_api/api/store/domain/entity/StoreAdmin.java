@@ -27,10 +27,6 @@ public class StoreAdmin extends RegModDtEntity {
     @JoinColumn(name = "store_idx")
     private Store store;
 
-    public void addStore(Store store) {
-        this.store = store;
-    }
-
     /**
      * 패스워드 암호화
      * @param passwordEncoder 암호화에 사용할 인코더 클래스

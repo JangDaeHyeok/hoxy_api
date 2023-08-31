@@ -3,7 +3,6 @@ package com.jdh.hoxy_api.api.store.application.impl;
 import com.jdh.hoxy_api.api.store.application.StoreAdminAddService;
 import com.jdh.hoxy_api.api.store.domain.entity.Store;
 import com.jdh.hoxy_api.api.store.domain.entity.StoreAdmin;
-import com.jdh.hoxy_api.api.store.domain.repository.StoreAdminRepository;
 import com.jdh.hoxy_api.api.store.domain.repository.StoreRepository;
 import com.jdh.hoxy_api.api.store.exception.StoreAdminException;
 import com.jdh.hoxy_api.api.store.exception.enums.StoreAdminErrorResult;
@@ -12,13 +11,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Optional;
-
 @Service
 @RequiredArgsConstructor
 public class StoreAdminAddServiceImpl implements StoreAdminAddService {
-
-    private final StoreAdminRepository storeAdminRepository;
 
     private final StoreRepository storeRepository;
 
@@ -31,12 +26,8 @@ public class StoreAdminAddServiceImpl implements StoreAdminAddService {
         Store store = storeRepository.findById((long) storeIdx)
                 .orElseThrow(() -> new StoreAdminException(StoreAdminErrorResult.STORE_NOT_EXIST));
 
-        // 이미 가입한 업체인지 체크
-        if(Optional.ofNullable(storeAdminRepository.findByStoreIdx(storeIdx)).isPresent())
-            throw new StoreAdminException(StoreAdminErrorResult.DUPLICATE_STORE);
-
         // 중복되는 id인지 체크
-        int idCnt = storeAdminRepository.countById(id);
+        int idCnt = storeRepository.countByStoreAdminId(id);
         if(idCnt > 0)
             throw new StoreAdminException(StoreAdminErrorResult.DUPLICATE_STORE_ADMIN_ID);
 
@@ -46,12 +37,14 @@ public class StoreAdminAddServiceImpl implements StoreAdminAddService {
                 .password(password)
                 .name(name)
                 .build();
-        storeAdmin.addStore(store);
 
         // 비밀번호 암호화
         storeAdmin.encryptPassword(bCryptPasswordEncoder);
 
+        // Store Aggregate에 StoreAdmin 정보 등록
+        store.addStoreAdmin(storeAdmin);
+
         // 업체 관리자 계정정보 저장
-        storeAdminRepository.save(storeAdmin);
+        storeRepository.save(store);
     }
 }

@@ -3,6 +3,8 @@ package com.jdh.hoxy_api.api.store.domain.entity;
 import com.jdh.hoxy_api.api.common.entity.DelYnEntity;
 import com.jdh.hoxy_api.api.common.entity.RegModDtEntity;
 import com.jdh.hoxy_api.api.common.enums.YorN;
+import com.jdh.hoxy_api.api.store.exception.StoreAdminException;
+import com.jdh.hoxy_api.api.store.exception.enums.StoreAdminErrorResult;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -20,8 +22,15 @@ public class Store extends RegModDtEntity {
     @Embedded
     private DelYnEntity delYn;
 
-    @OneToOne(mappedBy = "store")
+    @OneToOne(mappedBy = "store", cascade = CascadeType.ALL)
     private StoreAdmin storeAdmin;
+
+    public void addStoreAdmin(StoreAdmin storeAdmin) {
+        if(this.storeAdmin != null)
+            throw new StoreAdminException(StoreAdminErrorResult.DUPLICATE_STORE);
+
+        this.storeAdmin = storeAdmin;
+    }
 
     @Builder
     protected Store(String name) {
