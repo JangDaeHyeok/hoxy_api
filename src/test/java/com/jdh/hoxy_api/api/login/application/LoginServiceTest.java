@@ -83,7 +83,7 @@ public class LoginServiceTest {
         when(storeRepository.findByStoreAdminId("test")).thenReturn(Optional.of(store));
         when(storeAdmin.checkPassword("1234", bCryptPasswordEncoder)).thenReturn(true);
         final String testToken = "testToken1234";
-        when(jwtTokenProvider.generateAccessToken("test")).thenReturn(testToken);
+        when(jwtTokenProvider.generateAccessToken(String.valueOf(store.getIdx()))).thenReturn(testToken);
 
         // when
         final LoginResponseDTO result = target.login("test", "1234");
@@ -94,7 +94,7 @@ public class LoginServiceTest {
 
         // verify
         verify(storeRepository, times(1)).findByStoreAdminId("test");
-        verify(jwtTokenProvider, times(1)).generateAccessToken("test");
+        verify(jwtTokenProvider, times(1)).generateAccessToken(String.valueOf(store.getIdx()));
     }
 
     private Store getTestStore() {
