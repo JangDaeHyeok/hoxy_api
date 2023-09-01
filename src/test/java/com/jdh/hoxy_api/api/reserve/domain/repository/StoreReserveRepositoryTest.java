@@ -1,5 +1,7 @@
 package com.jdh.hoxy_api.api.reserve.domain.repository;
 
+import com.jdh.hoxy_api.api.common.entity.DelYnEntity;
+import com.jdh.hoxy_api.api.common.enums.YorN;
 import com.jdh.hoxy_api.api.reserve.domain.entity.ReserveInfo;
 import com.jdh.hoxy_api.api.reserve.domain.entity.StoreReserve;
 import com.jdh.hoxy_api.api.store.domain.entity.Store;
@@ -55,7 +57,7 @@ public class StoreReserveRepositoryTest {
         storeReserveRepository.save(reserve2);
 
         // when
-        final List<StoreReserve> findList = storeReserveRepository.findByStoreIdx(store.getIdx());
+        final List<StoreReserve> findList = storeReserveRepository.findByStoreIdxAndDelYn(store.getIdx(), DelYnEntity.builder().delYn(YorN.N).build());
 
         // then
         assertThat(findList).isNotNull();
