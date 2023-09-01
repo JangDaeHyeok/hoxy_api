@@ -2,10 +2,10 @@ package com.jdh.hoxy_api.api.store.domain.repository;
 
 import com.jdh.hoxy_api.api.store.domain.entity.Store;
 import com.jdh.hoxy_api.api.store.domain.entity.StoreAdmin;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.transaction.annotation.Transactional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -15,22 +15,21 @@ public class StoreRepositoryTest {
     @Autowired
     StoreRepository storeRepository;
 
-    @BeforeEach
-    public void addStore() {
-        final Store store = getTestStore();
-        final StoreAdmin storeAdmin = getTestStoreAdmin();
-        store.addStoreAdmin(storeAdmin);
-
-        storeRepository.save(store);
-    }
-
     @Test
+    @Transactional
     public void StoreRepository_Not_Null() {
         assertThat(storeRepository);
     }
 
     @Test
+    @Transactional
     public void StoreRepository_업체_조회() {
+        // given
+        final Store store = getTestStore();
+        final StoreAdmin storeAdmin = getTestStoreAdmin();
+        store.addStoreAdmin(storeAdmin);
+        storeRepository.save(store);
+
         // when
         final Store find = storeRepository.findAll().get(0);
 
@@ -39,7 +38,14 @@ public class StoreRepositoryTest {
     }
 
     @Test
+    @Transactional
     public void StoreRepository_업체_관리자_id로_업체_조회() {
+        // given
+        final Store store = getTestStore();
+        final StoreAdmin storeAdmin = getTestStoreAdmin();
+        store.addStoreAdmin(storeAdmin);
+        storeRepository.save(store);
+
         // when
         final Store find = storeRepository.findByStoreAdminId("test").get();
 
@@ -51,7 +57,14 @@ public class StoreRepositoryTest {
     }
 
     @Test
+    @Transactional
     public void StoreRepository_업체_관리자_id_개수_조회() {
+        // given
+        final Store store = getTestStore();
+        final StoreAdmin storeAdmin = getTestStoreAdmin();
+        store.addStoreAdmin(storeAdmin);
+        storeRepository.save(store);
+
         // when
         final int find = storeRepository.countByStoreAdminId("test");
 
