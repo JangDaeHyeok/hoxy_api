@@ -51,7 +51,7 @@ public class StoreRserveControllerGetDocsTest {
         when(storeReserveGetService.getStoreReserveList(1)).thenReturn(resultList);
 
         // then
-        mockMvc.perform(get("/manage/store/reserve").accept(MediaType.APPLICATION_JSON))
+        mockMvc.perform(get("/manage/store/reserve").accept(MediaType.APPLICATION_JSON).header("Authorization", "accessToken"))
                 .andExpect(status().isOk())
                 .andDo(document("get-store-reserves",
                         preprocessResponse(prettyPrint()),
