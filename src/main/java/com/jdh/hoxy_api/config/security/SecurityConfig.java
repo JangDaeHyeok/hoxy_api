@@ -1,19 +1,29 @@
 package com.jdh.hoxy_api.config.security;
 
+import com.jdh.hoxy_api.config.security.filter.JwtRequestFilter;
+import com.jdh.hoxy_api.config.security.handler.JwtAuthenticationEntryPoint;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.servlet.util.matcher.MvcRequestMatcher;
 import org.springframework.web.servlet.handler.HandlerMappingIntrospector;
 
 @Configuration
 @EnableWebSecurity
+@RequiredArgsConstructor
 public class SecurityConfig {
+
+    private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
+
+    private final JwtRequestFilter jwtRequestFilter;
 
     @Bean
     public BCryptPasswordEncoder bCryptPasswordEncoder() {
@@ -38,7 +48,20 @@ public class SecurityConfig {
         http.headers((headers) ->
                 headers.frameOptions(HeadersConfigurer.FrameOptionsConfig::disable));
 
-        http.authorizeHttpRequests(authorize -> authorize.requestMatchers(PERMIT_ALL_WHITE_LIST).permitAll());
+        // http request 인증 설정
+        http.authorizeHttpRequests(authorize ->
+                authorize.requestMatchers(PERMIT_ALL_WHITE_LIST).permitAll()
+                        .anyRequest().authenticated()
+        );
+
+        // 인증 실패 시 exception handler 설정
+        http.exceptionHandling(httpSecurityExceptionHandlingConfigurer -> httpSecurityExceptionHandlingConfigurer.authenticationEntryPoint(jwtAuthenticationEntryPoint));
+
+        // Spring Security에서 session을 생성하거나 사용하지 않도록 설정
+        http.sessionManagement(httpSecuritySessionManagementConfigurer -> httpSecuritySessionManagementConfigurer.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+
+        // jwt Filter 적용
+        http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }
