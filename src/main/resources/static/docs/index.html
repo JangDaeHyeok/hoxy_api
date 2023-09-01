@@ -445,8 +445,10 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div id="content">
 <div class="sect1">
-<h2 id="_get_store_업체_목록_조회"><code>GET /store</code> - 업체 목록 조회</h2>
+<h2 id="_사용자">사용자</h2>
 <div class="sectionbody">
+<div class="sect2">
+<h3 id="_get_store_업체_목록_조회"><code>GET /store</code> - 업체 목록 조회</h3>
 <div class="paragraph">
 <p>HTTP request:</p>
 </div>
@@ -519,9 +521,12 @@ Content-Length: 122
 </table>
 </div>
 </div>
+</div>
 <div class="sect1">
-<h2 id="_post_managestoreadmin_업체_관리자_등록회원가입"><code>POST /manage/store/admin</code> - 업체 관리자 등록(회원가입)</h2>
+<h2 id="_관리자">관리자</h2>
 <div class="sectionbody">
+<div class="sect2">
+<h3 id="_post_managestoreadmin_업체_관리자_등록회원가입"><code>POST /manage/store/admin</code> - 업체 관리자 등록(회원가입)</h3>
 <div class="paragraph">
 <p>HTTP request:</p>
 </div>
@@ -635,10 +640,8 @@ Content-Length: 74
 </tbody>
 </table>
 </div>
-</div>
-<div class="sect1">
-<h2 id="_post_managelogin_업체_관리자_로그인"><code>POST /manage/login</code> - 업체 관리자 로그인</h2>
-<div class="sectionbody">
+<div class="sect2">
+<h3 id="_post_managelogin_업체_관리자_로그인"><code>POST /manage/login</code> - 업체 관리자 로그인</h3>
 <div class="paragraph">
 <p>HTTP request:</p>
 </div>
@@ -745,12 +748,118 @@ Content-Length: 107
 </tbody>
 </table>
 </div>
+<div class="sect2">
+<h3 id="_get_managestorereserve_업체_예약_확인"><code>GET /manage/store/reserve</code> - 업체 예약 확인</h3>
+<div class="paragraph">
+<p>HTTP request:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight nowrap"><code class="language-http" data-lang="http">GET /manage/store/reserve HTTP/1.1
+Accept: application/json
+Authorization: accessToken
+Host: localhost:8080</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>HTTP response:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight nowrap"><code class="language-http" data-lang="http">HTTP/1.1 200 OK
+Content-Type: application/json
+X-Content-Type-Options: nosniff
+X-XSS-Protection: 0
+Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+Pragma: no-cache
+Expires: 0
+Content-Length: 397
+
+{
+  "result" : "success",
+  "msg" : "요청 성공",
+  "data" : [ {
+    "idx" : 1,
+    "storeIdx" : 1,
+    "name" : "테스트",
+    "phone" : "01012341234",
+    "reserveNum" : 2,
+    "regDt" : "2023-09-01 00:00:00"
+  }, {
+    "idx" : 2,
+    "storeIdx" : 1,
+    "name" : "테스트2",
+    "phone" : "01056785678",
+    "reserveNum" : 4,
+    "regDt" : "2023-09-01 14:08:27"
+  } ]
+}</code></pre>
+</div>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Path</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>result</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">요청 결과</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>msg</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">메시지</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data[].idx</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">예약 IDX</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data[].storeIdx</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">업체 IDX</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data[].name</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">예약자명</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data[].phone</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">예약자 전화번호</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data[].reserveNum</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">예약 인원수</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data[].regDt</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">예약 신청일자</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
 Version 0.0.1-SNAPSHOT<br>
-Last updated 2023-08-30 22:20:09 +0900
+Last updated 2023-09-01 18:20:07 +0900
 </div>
 </div>
 </body>
