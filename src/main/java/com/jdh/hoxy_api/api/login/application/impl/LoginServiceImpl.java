@@ -33,7 +33,7 @@ public class LoginServiceImpl implements LoginService {
             throw new LoginException(LoginErrorResult.ID_PASSWORD_NOT_CORRECT);
 
         // jwt 토큰 생성
-        String accessToken = jwtTokenProvider.generateAccessToken(id);
+        String accessToken = jwtTokenProvider.generateAccessToken(String.valueOf(findStoreAdmin.getIdx()));
 
         return LoginResponseDTO.builder()
                 .token(accessToken)
