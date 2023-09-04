@@ -18,4 +18,16 @@ public class DelYnEntity {
     @Column(nullable = false)
     private YorN delYn;
 
+    public static DelYnEntity getDelN() {
+        return DelYnEntity.builder()
+                .delYn(YorN.N)
+                .build();
+    }
+
+    public static DelYnEntity getDelY() {
+        return DelYnEntity.builder()
+                .delYn(YorN.Y)
+                .build();
+    }
+
 }

@@ -19,7 +19,7 @@ public class StoreReserveGetServiceImpl implements StoreReserveGetService {
 
     @Override
     public List<StoreReserveGetResponseDTO> getStoreReserveList(final int storeIdx) {
-        DelYnEntity delYn = DelYnEntity.builder().delYn(YorN.N).build();
+        DelYnEntity delYn = DelYnEntity.getDelN();
         List<StoreReserve> result = storeReserveRepository.findByStoreIdxAndDelYn(storeIdx, delYn);
 
         return result.stream()

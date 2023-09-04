@@ -52,8 +52,6 @@ public class Store extends RegModDtEntity {
     @Builder
     protected Store(String name) {
         this.name = name;
-        this.delYn = DelYnEntity.builder()
-                .delYn(YorN.N)
-                .build();
+        this.delYn = DelYnEntity.getDelN();
     }
 }
