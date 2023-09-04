@@ -2,14 +2,15 @@ package com.jdh.hoxy_api.api.store.domain.repository;
 
 import com.jdh.hoxy_api.api.store.domain.entity.Store;
 import com.jdh.hoxy_api.api.store.domain.entity.StoreAdmin;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 @DataJpaTest
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+@Order(1)
 public class StoreRepositoryTest {
 
     @Autowired
@@ -22,6 +23,11 @@ public class StoreRepositoryTest {
         store.addStoreAdmin(storeAdmin);
 
         storeRepository.save(store);
+    }
+
+    @AfterEach
+    public void deleteStore() {
+        storeRepository.deleteAll();
     }
 
     @Test
