@@ -57,7 +57,7 @@ public class StoreReserveRepositoryTest {
         storeReserveRepository.save(reserve2);
 
         // when
-        final List<StoreReserve> findList = storeReserveRepository.findByStoreIdxAndDelYn(store.getIdx(), DelYnEntity.builder().delYn(YorN.N).build());
+        final List<StoreReserve> findList = storeReserveRepository.findByStoreIdxAndDelYn(store.getIdx(), DelYnEntity.getDelN());
 
         // then
         assertThat(findList).isNotNull();
