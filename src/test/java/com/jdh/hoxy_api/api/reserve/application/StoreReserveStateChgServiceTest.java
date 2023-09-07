@@ -50,10 +50,36 @@ public class StoreReserveStateChgServiceTest {
         when(storeReserveRepository.findById((long) 1)).thenReturn(Optional.empty());
 
         // when
-        final StoreReserveException result = assertThrows(StoreReserveException.class, () -> target.editStoreReserveState(1, any()));
+        final StoreReserveException result = assertThrows(StoreReserveException.class, () -> target.editStoreReserveState(1, any(), 1));
 
         // then
         assertThat(result.getStoreReserveErrorResult()).isEqualTo(StoreReserveErrorResult.NOT_EXISTS);
+    }
+
+    @Test
+    @DisplayName("StoreReserveStateChgService 예약 정보의 업체 정보가 로그인된 업체 정보와 다른 경우 상태 변경 실패 테스트")
+    public void storeReserveStateChgService_업체_정보가_다른_경우_실패_테스트() {
+        // given
+        final Store store = Store.builder()
+                .idx(2)
+                .name("테스트")
+                .build();
+        final ReserveInfo reserveInfo = ReserveInfo.builder()
+                .name("테스트")
+                .phone("01012341234")
+                .reserveNum(2)
+                .build();
+        final StoreReserve storeReserve = StoreReserve.builder()
+                .store(store)
+                .reserveInfo(reserveInfo)
+                .build();
+        when(storeReserveRepository.findById((long) 1)).thenReturn(Optional.of(storeReserve));
+
+        // when
+        final StoreReserveException result = assertThrows(StoreReserveException.class, () -> target.editStoreReserveState(1, any(), 1));
+
+        // then
+        assertThat(result.getStoreReserveErrorResult()).isEqualTo(StoreReserveErrorResult.NOT_THIS_STORE);
     }
 
     @Test
@@ -65,7 +91,7 @@ public class StoreReserveStateChgServiceTest {
         when(storeReserveRepository.findById((long) 1)).thenReturn(Optional.of(storeReserve));
 
         // when
-        final StoreReserveException result = assertThrows(StoreReserveException.class, () -> target.editStoreReserveState(1, any()));
+        final StoreReserveException result = assertThrows(StoreReserveException.class, () -> target.editStoreReserveState(1, any(), 1));
 
         // then
         assertThat(result.getStoreReserveErrorResult()).isEqualTo(StoreReserveErrorResult.ALREADY_DELETE);
@@ -81,7 +107,7 @@ public class StoreReserveStateChgServiceTest {
         when(storeReserveHistoryRepository.findByStoreReserveHistoryPKIdx(1)).thenReturn(Optional.of(storeReserveHistory));
 
         // when
-        final StoreReserveHistoryException result = assertThrows(StoreReserveHistoryException.class, () -> target.editStoreReserveState(1, any()));
+        final StoreReserveHistoryException result = assertThrows(StoreReserveHistoryException.class, () -> target.editStoreReserveState(1, any(), 1));
 
         // then
         assertThat(result.getStoreReserveHistoryErrorResult()).isEqualTo(StoreReserveHistoryErrorResult.ALREADY_EXISTS);
@@ -96,7 +122,7 @@ public class StoreReserveStateChgServiceTest {
         when(storeReserveHistoryRepository.findByStoreReserveHistoryPKIdx(1)).thenReturn(Optional.empty());
 
         // when
-        target.editStoreReserveState(1, ReserveState.ACCEPT);
+        target.editStoreReserveState(1, ReserveState.ACCEPT, 1);
 
         // then
 
@@ -124,6 +150,7 @@ public class StoreReserveStateChgServiceTest {
 
     private Store getTestStore() {
         return Store.builder()
+                .idx(1)
                 .name("테스트")
                 .build();
     }
