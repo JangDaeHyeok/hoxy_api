@@ -2,6 +2,7 @@ package com.jdh.hoxy_api.api.reserve.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jdh.hoxy_api.api.reserve.application.StoreReserveGetService;
+import com.jdh.hoxy_api.api.reserve.application.impl.StoreReserveStateChgServiceImpl;
 import com.jdh.hoxy_api.api.reserve.dto.response.StoreReserveGetResponseDTO;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -32,10 +33,13 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
 @AutoConfigureRestDocs(outputDir = "build/generated-snippets")
-public class StoreRserveControllerGetDocsTest {
+public class StoreReserveControllerGetDocsTest {
 
     @MockBean
     StoreReserveGetService storeReserveGetService;
+
+    @MockBean
+    StoreReserveStateChgServiceImpl storeReserveStateChgService;
 
     @Autowired
     MockMvc mockMvc;

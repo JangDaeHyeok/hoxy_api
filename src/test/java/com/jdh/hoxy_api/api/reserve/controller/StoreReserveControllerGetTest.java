@@ -5,6 +5,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.jdh.hoxy_api.api.common.response.entity.ApiResponseEntity;
 import com.jdh.hoxy_api.api.reserve.application.StoreReserveGetService;
+import com.jdh.hoxy_api.api.reserve.application.StoreReserveStateChgService;
 import com.jdh.hoxy_api.api.reserve.dto.response.StoreReserveGetResponseDTO;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -40,6 +41,9 @@ public class StoreReserveControllerGetTest {
 
     @MockBean
     StoreReserveGetService storeReserveGetService;
+
+    @MockBean
+    StoreReserveStateChgService storeReserveStateChgService;
 
     @Autowired
     private MockMvc mockMvc;
