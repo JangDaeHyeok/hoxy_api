@@ -50,7 +50,8 @@ public class Store extends RegModDtEntity {
     }
 
     @Builder
-    protected Store(String name) {
+    protected Store(int idx, String name) {
+        this.idx = idx;
         this.name = name;
         this.delYn = DelYnEntity.getDelN();
     }
