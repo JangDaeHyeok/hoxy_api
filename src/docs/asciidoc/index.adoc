@@ -59,3 +59,17 @@ HTTP response:
 include::{snippets}/get-store-reserves/http-response.adoc[]
 
 include::{snippets}/get-store-reserves/response-fields.adoc[]
+
+=== `PUT /manage/store/reserve/{idx}` - 업체 예약 접수/취소
+
+HTTP request:
+
+include::{snippets}/edit-store-reserve-state/http-request.adoc[]
+
+include::{snippets}/edit-store-reserve-state/request-fields.adoc[]
+
+HTTP response:
+
+include::{snippets}/edit-store-reserve-state/http-response.adoc[]
+
+include::{snippets}/edit-store-reserve-state/response-fields.adoc[]
