@@ -75,7 +75,7 @@ public class LoginServiceTest {
 
     @Test
     @DisplayName("로그인 성공 test")
-    public void LoginService_성공() {
+    public void LoginService_성공() throws Exception {
         // given
         final Store store = getTestStore();
         final StoreAdmin storeAdmin = getTestStoreAdmin();
