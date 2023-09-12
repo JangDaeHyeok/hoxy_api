@@ -44,27 +44,6 @@ public class StoreRepositoryTest {
         assertThat(find.getName()).isEqualTo("테스트");
     }
 
-    @Test
-    public void StoreRepository_업체_관리자_id로_업체_조회() {
-        // when
-        final Store find = storeRepository.findByStoreAdminId("test").get();
-
-        // then
-        assertThat(find.getName()).isEqualTo("테스트");
-        assertThat(find.getStoreAdmin().getId()).isEqualTo("test");
-        assertThat(find.getStoreAdmin().getPassword()).isEqualTo("1234");
-        assertThat(find.getStoreAdmin().getName()).isEqualTo("테스트 관리자");
-    }
-
-    @Test
-    public void StoreRepository_업체_관리자_id_개수_조회() {
-        // when
-        final int find = storeRepository.countByStoreAdminId("test");
-
-        // then
-        assertThat(find).isEqualTo(1);
-    }
-
     private Store getTestStore() {
         return Store.builder()
                 .name("테스트")

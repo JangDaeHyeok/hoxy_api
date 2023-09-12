@@ -6,6 +6,7 @@ import com.jdh.hoxy_api.api.reserve.domain.entity.StoreReserve;
 import com.jdh.hoxy_api.api.reserve.domain.repository.StoreReserveRepository;
 import com.jdh.hoxy_api.api.reserve.dto.response.StoreReserveGetResponseDTO;
 import com.jdh.hoxy_api.api.store.domain.entity.Store;
+import com.jdh.hoxy_api.api.store.domain.repository.StoreRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -14,6 +15,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
@@ -25,7 +27,7 @@ public class StoreReserveGetServiceTest {
     StoreReserveGetServiceImpl target;
 
     @Mock
-    StoreReserveRepository storeReserveRepository;
+    StoreRepository storeRepository;
 
     @Test
     public void StoreReserveService_Not_Null() {
@@ -35,8 +37,13 @@ public class StoreReserveGetServiceTest {
     @Test
     public void StoreReserveService_예약_목록_조회_성공() {
         // given
-        final List<StoreReserve> resultList = getTestStoreReserveList();
-        when(storeReserveRepository.findByStoreIdxAndDelYn(eq(1), any())).thenReturn(resultList);
+        final Store store = getTestStore();
+        final List<StoreReserve> resultList = getTestStoreReserveList(store);
+        final Store resultStore = Store.builder()
+                .name("테스트")
+                .storeReserves(resultList)
+                .build();
+        when(storeRepository.findByIdWithStoreReserves(eq(1), any())).thenReturn(Optional.ofNullable(resultStore));
 
         // then
         final List<StoreReserveGetResponseDTO> result = target.getStoreReserveList(1);
@@ -51,7 +58,7 @@ public class StoreReserveGetServiceTest {
         assertThat(result.get(1).getReserveNum()).isEqualTo(4);
 
         // verify
-        verify(storeReserveRepository, times(1)).findByStoreIdxAndDelYn(eq(1), any());
+        verify(storeRepository, times(1)).findByIdWithStoreReserves(eq(1), any());
     }
 
     private Store getTestStore() {
@@ -60,10 +67,9 @@ public class StoreReserveGetServiceTest {
                 .build();
     }
 
-    private List<StoreReserve> getTestStoreReserveList() {
+    private List<StoreReserve> getTestStoreReserveList(Store store) {
         List<StoreReserve> reserveList = new ArrayList<>();
 
-        final Store store = getTestStore();
         final ReserveInfo reserveInfo1 = ReserveInfo.builder()
                 .name("테스트")
                 .phone("01012341234")
