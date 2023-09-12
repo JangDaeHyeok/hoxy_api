@@ -6,6 +6,6 @@ import java.util.List;
 
 public interface StoreGetService {
 
-    List<StoreGetResponseDTO> getStoreList();
+    List<StoreGetResponseDTO> getStoreList() throws Exception;
 
 }

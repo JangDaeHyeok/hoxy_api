@@ -21,7 +21,7 @@ public class StoreAdminAddServiceImpl implements StoreAdminAddService {
 
     @Override
     @Transactional
-    public void addStoreAdmin(final int storeIdx, final String id, final String password, final String name) {
+    public void addStoreAdmin(final int storeIdx, final String id, final String password, final String name) throws Exception {
         // 존재하는 업체가 아닌 경우
         Store store = storeRepository.findById((long) storeIdx)
                 .orElseThrow(() -> new StoreAdminException(StoreAdminErrorResult.STORE_NOT_EXIST));

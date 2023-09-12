@@ -17,7 +17,7 @@ public class StoreController {
     private final StoreGetService storeGetService;
 
     @GetMapping(value = "/store")
-    public ResponseEntity<ApiResponseEntity> storeListGetApi() {
+    public ResponseEntity<ApiResponseEntity> storeListGetApi() throws Exception {
         final List<StoreGetResponseDTO> result = storeGetService.getStoreList();
 
         return ApiResponseEntity.successResponseEntity(result);

@@ -16,7 +16,7 @@ public class StoreGetServiceImpl implements StoreGetService {
     private final StoreRepository storeRepository;
 
     @Override
-    public List<StoreGetResponseDTO> getStoreList() {
+    public List<StoreGetResponseDTO> getStoreList() throws Exception {
         final List<Store> result = storeRepository.findAll();
 
         return result.stream()

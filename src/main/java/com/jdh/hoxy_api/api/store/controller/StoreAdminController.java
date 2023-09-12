@@ -17,7 +17,7 @@ public class StoreAdminController {
     private final StoreAdminAddService storeAdminAddService;
 
     @PostMapping(value = "/manage/store/admin")
-    public ResponseEntity<ApiResponseEntity> storeListGetApi(@RequestBody @Valid StoreAdminAddRequestDTO reqDTO) {
+    public ResponseEntity<ApiResponseEntity> storeListGetApi(@RequestBody @Valid StoreAdminAddRequestDTO reqDTO) throws Exception {
         storeAdminAddService.addStoreAdmin(reqDTO.getStoreIdx(), reqDTO.getId(), reqDTO.getPassword(), reqDTO.getName());
 
         return ApiResponseEntity.successResponseEntity();
