@@ -2,7 +2,6 @@ package com.jdh.hoxy_api.api.store.domain.entity;
 
 import com.jdh.hoxy_api.api.common.entity.DelYnEntity;
 import com.jdh.hoxy_api.api.common.entity.RegModDtEntity;
-import com.jdh.hoxy_api.api.common.enums.YorN;
 import com.jdh.hoxy_api.api.reserve.domain.entity.StoreReserve;
 import com.jdh.hoxy_api.api.store.exception.StoreAdminException;
 import com.jdh.hoxy_api.api.store.exception.enums.StoreAdminErrorResult;
@@ -12,6 +11,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -28,12 +28,12 @@ public class Store extends RegModDtEntity {
     @Embedded
     private DelYnEntity delYn;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "idx")
     private StoreAdmin storeAdmin;
 
-    @OneToMany(mappedBy = "store")
-    private List<StoreReserve> reserveInfoList;
+    @OneToMany(mappedBy = "store", fetch = FetchType.LAZY)
+    private List<StoreReserve> storeReserves = new ArrayList<>();
 
     public void addStoreAdmin(StoreAdmin storeAdmin) {
         verifyNotContainAdmin();
@@ -50,9 +50,13 @@ public class Store extends RegModDtEntity {
     }
 
     @Builder
-    protected Store(int idx, String name) {
+    protected Store(int idx, String name, List<StoreReserve> storeReserves) {
         this.idx = idx;
         this.name = name;
+
+        if(storeReserves != null) this.storeReserves = storeReserves;
+        else this.storeReserves = new ArrayList<>();
+
         this.delYn = DelYnEntity.getDelN();
     }
 }

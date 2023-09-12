@@ -21,7 +21,7 @@ public class StoreReserve extends RegModDtEntity {
     private int idx;
 
     @ManyToOne
-    @JoinColumn(name = "store_idx", referencedColumnName = "idx")
+    @JoinColumn(name = "store_idx")
     private Store store;
 
     @Embedded
