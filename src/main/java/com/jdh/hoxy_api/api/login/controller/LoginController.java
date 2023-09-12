@@ -18,7 +18,7 @@ public class LoginController {
     private final LoginService loginService;
 
     @PostMapping(value = "/manage/login")
-    public ResponseEntity<ApiResponseEntity> login(@RequestBody @Valid LoginRequestDTO reqDTO) {
+    public ResponseEntity<ApiResponseEntity> login(@RequestBody @Valid LoginRequestDTO reqDTO) throws Exception {
         LoginResponseDTO result = loginService.login(reqDTO.getId(), reqDTO.getPassword());
 
         return ApiResponseEntity

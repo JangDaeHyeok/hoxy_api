@@ -22,7 +22,7 @@ public class LoginServiceImpl implements LoginService {
     private final JwtTokenProvider jwtTokenProvider;
 
     @Override
-    public LoginResponseDTO login(String id, String password) {
+    public LoginResponseDTO login(String id, String password) throws Exception {
         // StoreAdmin 정보 조회
         StoreAdmin findStoreAdmin = storeRepository.findByStoreAdminId(id)
                 .orElseThrow(() -> new LoginException(LoginErrorResult.ID_PASSWORD_NOT_CORRECT))
