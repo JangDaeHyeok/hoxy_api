@@ -115,7 +115,7 @@ public class StoreReserveStateChgServiceTest {
 
     @Test
     @DisplayName("StoreReserveStateChgService 상태 변경 성공 테스트")
-    public void storeReserveStateChgService_성공_테스트() {
+    public void storeReserveStateChgService_성공_테스트() throws Exception {
         // given
         final StoreReserve storeReserve = getTestStoreReserve();
         when(storeReserveRepository.findById((long) 1)).thenReturn(Optional.of(storeReserve));

@@ -35,7 +35,7 @@ public class StoreReserveGetServiceTest {
     }
 
     @Test
-    public void StoreReserveService_예약_목록_조회_성공() {
+    public void StoreReserveService_예약_목록_조회_성공() throws Exception {
         // given
         final Store store = getTestStore();
         final List<StoreReserve> resultList = getTestStoreReserveList(store);
