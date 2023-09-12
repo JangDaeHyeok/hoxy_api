@@ -25,7 +25,7 @@ public class StoreReserveController {
     private final StoreReserveStateChgService storeReserveStateChgService;
 
     @GetMapping(value = "/manage/store/reserve")
-    public ResponseEntity<ApiResponseEntity> storeReserveGetApi(Authentication authentication) {
+    public ResponseEntity<ApiResponseEntity> storeReserveGetApi(Authentication authentication) throws Exception {
         List<StoreReserveGetResponseDTO> result = storeReserveGetService.getStoreReserveList(Integer.parseInt(authentication.getName()));
 
         return ApiResponseEntity.successResponseEntity(result);
@@ -33,7 +33,7 @@ public class StoreReserveController {
 
     @PutMapping(value = "/manage/store/reserve/{idx}")
     public ResponseEntity<ApiResponseEntity> storeReserveStateChgApi(@PathVariable int idx, @RequestBody @Validated(ValidationSequence.class) StoreReserveStateChgRequestDTO requestDTO
-            , Authentication authentication) {
+            , Authentication authentication) throws Exception {
         ReserveState reserveState = ReserveState.valueOf(requestDTO.getReserveState());
         storeReserveStateChgService.editStoreReserveState(idx, reserveState, Integer.parseInt(authentication.getName()));
 

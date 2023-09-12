@@ -24,7 +24,7 @@ public class StoreReserveStateChgServiceImpl implements StoreReserveStateChgServ
 
     @Override
     @Transactional
-    public void editStoreReserveState(final int idx, final ReserveState reserveState, final int storeIdx) {
+    public void editStoreReserveState(final int idx, final ReserveState reserveState, final int storeIdx) throws Exception {
         // 업체 예약 정보 조회
         StoreReserve storeReserve = storeReserveRepository.findById((long) idx)
                 .orElseThrow(() -> new StoreReserveException(StoreReserveErrorResult.NOT_EXISTS));

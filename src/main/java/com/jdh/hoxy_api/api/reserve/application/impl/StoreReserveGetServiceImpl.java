@@ -18,7 +18,7 @@ public class StoreReserveGetServiceImpl implements StoreReserveGetService {
     private final StoreRepository storeRepository;
 
     @Override
-    public List<StoreReserveGetResponseDTO> getStoreReserveList(final int storeIdx) {
+    public List<StoreReserveGetResponseDTO> getStoreReserveList(final int storeIdx) throws Exception {
         DelYnEntity delYn = DelYnEntity.getDelN();
 
         Store find = storeRepository.findByIdWithStoreReserves(storeIdx, delYn).orElse(Store.builder().build());
