@@ -31,7 +31,7 @@ public class StoreGetServiceTest {
     }
 
     @Test
-    public void Store_조회_성공() {
+    public void Store_조회_성공() throws Exception {
         // given
         final Store store = Store.builder()
                 .name("테스트")

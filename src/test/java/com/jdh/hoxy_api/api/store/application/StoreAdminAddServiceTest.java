@@ -82,7 +82,7 @@ public class StoreAdminAddServiceTest {
 
     @Test
     @DisplayName("업체 관리자 계정 등록 성공")
-    public void StoreAdminAddService_회원가입_성공() {
+    public void StoreAdminAddService_회원가입_성공() throws Exception {
         // given
         final Store store = getTestStore();
         final StoreAdmin storeAdmin = getTestStoreAdmin();
