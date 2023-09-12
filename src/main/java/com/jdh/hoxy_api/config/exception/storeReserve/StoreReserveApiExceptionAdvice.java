@@ -3,11 +3,14 @@ package com.jdh.hoxy_api.config.exception.storeReserve;
 import com.jdh.hoxy_api.api.reserve.exception.StoreReserveException;
 import com.jdh.hoxy_api.config.exception.common.ApiExceptionEntity;
 import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.core.Ordered;
+import org.springframework.core.annotation.Order;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @RestControllerAdvice
+@Order(Ordered.HIGHEST_PRECEDENCE)
 public class StoreReserveApiExceptionAdvice {
 
     @ExceptionHandler({StoreReserveException.class})

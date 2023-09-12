@@ -2,6 +2,8 @@ package com.jdh.hoxy_api.config.exception.common;
 
 import com.jdh.hoxy_api.config.exception.common.enums.ApiExceptionEnum;
 import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.core.Ordered;
+import org.springframework.core.annotation.Order;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -12,19 +14,8 @@ import org.springframework.web.servlet.NoHandlerFoundException;
 import java.nio.file.AccessDeniedException;
 
 @RestControllerAdvice
+@Order(Ordered.LOWEST_PRECEDENCE)
 public class ApiExceptionAdvice {
-
-    // runtime(checked) exception
-    @ExceptionHandler({RuntimeException.class})
-    public ResponseEntity<ApiExceptionEntity> exceptionHandler(HttpServletRequest req, final RuntimeException e) {
-        // e.printStackTrace();
-        return ResponseEntity
-                .status(ApiExceptionEnum.RUNTIME_EXCEPTION.getStatus())
-                .body(ApiExceptionEntity.builder()
-                        .errorCode(ApiExceptionEnum.RUNTIME_EXCEPTION.getCode())
-                        .errorMsg(e.getMessage())
-                        .build());
-    }
 
     // access denied exception
     @ExceptionHandler({AccessDeniedException.class})
@@ -74,10 +65,22 @@ public class ApiExceptionAdvice {
                         .build());
     }
 
-    // unchecked exception
+    // runtime(unchecked) exception
+    @ExceptionHandler({RuntimeException.class})
+    public ResponseEntity<ApiExceptionEntity> exceptionHandler(HttpServletRequest req, final RuntimeException e) {
+        e.printStackTrace();
+        return ResponseEntity
+                .status(ApiExceptionEnum.RUNTIME_EXCEPTION.getStatus())
+                .body(ApiExceptionEntity.builder()
+                        .errorCode(ApiExceptionEnum.RUNTIME_EXCEPTION.getCode())
+                        .errorMsg(e.getMessage())
+                        .build());
+    }
+
+    // exception
     @ExceptionHandler({Exception.class})
     public ResponseEntity<ApiExceptionEntity> exceptionHandler(HttpServletRequest req, final Exception e) {
-        // e.printStackTrace();
+        e.printStackTrace();
         return ResponseEntity
                 .status(ApiExceptionEnum.INTERNAL_SERVER_ERROR.getStatus())
                 .body(ApiExceptionEntity.builder()
