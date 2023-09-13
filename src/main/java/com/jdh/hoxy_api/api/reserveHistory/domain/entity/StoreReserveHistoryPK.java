@@ -5,7 +5,7 @@ import jakarta.persistence.Embeddable;
 import lombok.*;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Getter
 @Embeddable
@@ -18,13 +18,13 @@ public class StoreReserveHistoryPK implements Serializable {
 
     private int storeIdx;
 
-    private LocalDateTime regDt;
+    private LocalDate regDt;
 
     public StoreReserveHistoryPK of(StoreReserve storeReserve) {
         return StoreReserveHistoryPK.builder()
                 .idx(storeReserve.getIdx())
                 .storeIdx(storeReserve.getStore().getIdx())
-                .regDt(storeReserve.getRegDt())
+                .regDt(storeReserve.getRegDt().toLocalDate())
                 .build();
     }
 

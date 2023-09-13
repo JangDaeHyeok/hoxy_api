@@ -51,7 +51,7 @@ public class StoreReserveHistory {
         return StoreReserveHistoryPK.builder()
                 .idx(storeReserve.getIdx())
                 .storeIdx(storeReserve.getStore().getIdx())
-                .regDt(storeReserve.getRegDt())
+                .regDt(storeReserve.getRegDt() != null ? storeReserve.getRegDt().toLocalDate() : null)
                 .build();
     }
 
