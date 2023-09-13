@@ -20,6 +20,9 @@ configurations {
 
 	// asciidoctor 확장 기능 사용
 	asciidoctorExtensions
+
+	// for querydsl
+	querydsl.extendsFrom compileClasspath
 }
 
 repositories {
@@ -43,6 +46,12 @@ dependencies {
 	testImplementation 'org.springframework.security:spring-security-test'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
+
+	// querydsl
+	implementation 'com.querydsl:querydsl-jpa:5.0.0:jakarta'
+	annotationProcessor "com.querydsl:querydsl-apt:5.0.0:jakarta"
+	annotationProcessor "jakarta.annotation:jakarta.annotation-api"
+	annotationProcessor "jakarta.persistence:jakarta.persistence-api"
 
 	// log4jdbc
 	implementation 'org.bgee.log4jdbc-log4j2:log4jdbc-log4j2-jdbc4.1:1.16'
@@ -95,6 +104,14 @@ bootJar {
 // active profile default를 dev로 지정
 ext.profile = (!project.hasProperty('profile') || !profile) ? 'dev' : profile
 
+// for querydsl directory
+def querydslDir = "$buildDir/generated/querydsl"
+
+// querydsl QClass 파일 생성 위치를 지정
+tasks.withType(JavaCompile) {
+	options.getGeneratedSourceOutputDirectory().set(file(querydslDir))
+}
+
 // 리소스 폴더 지정
 sourceSets {
 	main {
@@ -102,6 +119,8 @@ sourceSets {
 			srcDirs "src/main/resources", "src/main/resources-${profile}"
 		}
 	}
+
+	main.java.srcDir querydslDir
 }
 
 tasks {
