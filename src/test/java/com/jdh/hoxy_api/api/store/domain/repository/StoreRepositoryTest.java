@@ -2,15 +2,18 @@ package com.jdh.hoxy_api.api.store.domain.repository;
 
 import com.jdh.hoxy_api.api.store.domain.entity.Store;
 import com.jdh.hoxy_api.api.store.domain.entity.StoreAdmin;
+import com.jdh.hoxy_api.config.querydsl.QuerydslConfig;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.context.annotation.Import;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 @DataJpaTest
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @Order(1)
+@Import(QuerydslConfig.class)
 public class StoreRepositoryTest {
 
     @Autowired

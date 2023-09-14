@@ -6,15 +6,18 @@ import com.jdh.hoxy_api.api.reserve.domain.entity.ReserveInfo;
 import com.jdh.hoxy_api.api.reserve.domain.entity.StoreReserve;
 import com.jdh.hoxy_api.api.store.domain.entity.Store;
 import com.jdh.hoxy_api.api.store.domain.repository.StoreRepository;
+import com.jdh.hoxy_api.config.querydsl.QuerydslConfig;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.context.annotation.Import;
 
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 @DataJpaTest
+@Import(QuerydslConfig.class)
 public class StoreReserveRepositoryTest {
 
     @Autowired

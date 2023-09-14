@@ -13,6 +13,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.Import;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -82,6 +83,7 @@ public class StoreReserveHistoryRepositoryTest {
 
     @Test
     @DisplayName("StoreReserveHistory 목록 조회 테스트")
+    @Transactional
     public void StoreReserveHistory_목록_조회() {
         // given
         final Store store = getTestStore();
@@ -89,6 +91,7 @@ public class StoreReserveHistoryRepositoryTest {
         final StoreReserve storeReserve = getTestStoreReserve(store);
         storeReserveRepository.save(storeReserve);
         final StoreReserveHistory storeReserveHistory = StoreReserveHistory.rejectOf(storeReserve);
+        storeReserveHistoryRepository.deleteAll();
         storeReserveHistoryRepository.save(storeReserveHistory);
 
         // when
