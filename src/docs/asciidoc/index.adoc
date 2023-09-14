@@ -73,3 +73,17 @@ HTTP response:
 include::{snippets}/edit-store-reserve-state/http-response.adoc[]
 
 include::{snippets}/edit-store-reserve-state/response-fields.adoc[]
+
+=== `GET /manage/store/reserve/history` - 업체 예약 내역 조회
+
+HTTP request:
+
+include::{snippets}/get-store-reserve-histories/http-request.adoc[]
+
+include::{snippets}/get-store-reserve-histories/query-parameters.adoc[]
+
+HTTP response:
+
+include::{snippets}/get-store-reserve-histories/http-response.adoc[]
+
+include::{snippets}/get-store-reserve-histories/response-fields.adoc[]
