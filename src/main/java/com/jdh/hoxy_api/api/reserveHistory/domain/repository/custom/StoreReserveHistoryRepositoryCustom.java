@@ -7,6 +7,6 @@ import java.util.List;
 
 public interface StoreReserveHistoryRepositoryCustom {
 
-    List<StoreReserveHistory> getStoreReserveHistoryList(int idx, LocalDate regDt);
+    List<StoreReserveHistory> getStoreReserveHistoryList(final int storeIdx, final LocalDate regDt);
 
 }

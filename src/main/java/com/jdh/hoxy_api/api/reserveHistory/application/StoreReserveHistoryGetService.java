@@ -6,6 +6,6 @@ import java.util.List;
 
 public interface StoreReserveHistoryGetService {
 
-    List<StoreReserveHistoryGetResponseDTO> getStoreReserveHistoryList(final int idx, final String regDtStr) throws Exception;
+    List<StoreReserveHistoryGetResponseDTO> getStoreReserveHistoryList(final int storeIdx, final String regDtStr) throws Exception;
 
 }

@@ -19,16 +19,16 @@ public class StoreReserveHistoryRepositoryImpl implements StoreReserveHistoryRep
     private final JPAQueryFactory jpaQueryFactory;
 
     @Override
-    public List<StoreReserveHistory> getStoreReserveHistoryList(int idx, LocalDate regDt) {
+    public List<StoreReserveHistory> getStoreReserveHistoryList(final int storeIdx, final LocalDate regDt) {
         return jpaQueryFactory
                 .selectFrom(storeReserveHistory)
-                .where(idxEq(idx), regDtEq(regDt))
+                .where(storeIdxEq(storeIdx), regDtEq(regDt))
                 .orderBy(storeReserveHistory.storeReserveHistoryPK.idx.desc())
                 .fetch();
     }
 
-    private BooleanExpression idxEq(int idx) {
-        return storeReserveHistory.storeReserveHistoryPK.idx.eq(idx);
+    private BooleanExpression storeIdxEq(int idx) {
+        return storeReserveHistory.storeReserveHistoryPK.storeIdx.eq(idx);
     }
 
     private BooleanExpression regDtEq(LocalDate regDt) {

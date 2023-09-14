@@ -8,7 +8,6 @@ import com.jdh.hoxy_api.api.reserveHistory.exception.enums.StoreReserveHistoryEr
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -21,7 +20,7 @@ public class StoreReserveHistoryGetServiceImpl implements StoreReserveHistoryGet
     private final StoreReserveHistoryRepository storeReserveHistoryRepository;
 
     @Override
-    public List<StoreReserveHistoryGetResponseDTO> getStoreReserveHistoryList(final int idx, final String regDtStr) throws Exception {
+    public List<StoreReserveHistoryGetResponseDTO> getStoreReserveHistoryList(final int storeIdx, final String regDtStr) throws Exception {
         // String regDtStr to LocalDate
         LocalDate regDt = null;
         try {
@@ -32,7 +31,7 @@ public class StoreReserveHistoryGetServiceImpl implements StoreReserveHistoryGet
         }
 
 
-        var findList = storeReserveHistoryRepository.getStoreReserveHistoryList(idx, regDt);
+        var findList = storeReserveHistoryRepository.getStoreReserveHistoryList(storeIdx, regDt);
 
         return findList.stream()
                 .map(StoreReserveHistoryGetResponseDTO::of)
